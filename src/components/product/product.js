@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import firebase from "../firebase/firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
+import { faPhone, faSpa, faSquareCaretDown, faSquarePhone } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Context from "../../context/context";
+import Service from "../service/service";
 import { BeatLoader } from "react-spinners";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -19,10 +22,12 @@ import 'swiper/css/virtual';
 
 
 
+
 function Product() {
   const ctx = useContext(Context);
   const [state, setState] = useState();
   const [loading, setLoading] = useState(true);
+  const [serviceOn, setService] = useState(false);
   useEffect(() => {
     const getData = firebase
       .database()
@@ -35,6 +40,16 @@ function Product() {
       }
       setState(dataList);
       setLoading(false);
+      
+    });
+
+
+    const getService = firebase
+      .database()
+      .ref("order/service");
+      getService.on("value", (snapshot) => {
+      const service = snapshot.val();
+      setService(service);
       
     });
 
@@ -53,22 +68,26 @@ function Product() {
 
 
 
-  return loading ? (
+  return serviceOn ? <div><Service/></div> : loading ? (
     <div className="col-12 d-flex justify-content-center align-items-center vh-100">
       <div>
         <BeatLoader color={"#21618C  "} size={25} />
       </div>
     </div>
-  ) : (
-    <div id="card_9" className="col-md-12 layout-spacing mr-4 mt-4">
+  ) : <div id="card_9" className="col-md-12 layout-spacing mr-4 mt-4">
       <div className="statbox widget box box-shadow ">
         <div className="widget-header">
           <div className="row">
-            <div className="col-xl-12 mt-4 text-center col-md-12 col-sm-12 col-12 rounded">
-              <h4>Та худалдаж авах маскны төрлөө сонгоно уу</h4>
-
-              {/* <h1>{state}</h1> */}
+          <div className="col-xl-12 mt-4 text-right col-md-11 col-sm-12 col-7 mr-4">
+              <h5><FontAwesomeIcon icon={faSquarePhone} />  80551166</h5>
             </div>
+          <div className="col-xl-12 mt-4 text-center col-md-12 col-sm-12 col-12 ml-4 rounded ">
+              
+              <h2>Та худалдаж авах маскны төрлөө сонгоно уу</h2>
+
+      
+            </div>
+
           </div>
         </div>
         <div className="widget-content widget-content-area ">
@@ -82,7 +101,7 @@ function Product() {
     slidesPerView={4}
     a11y
     autoplay
-    pagination={{ clickable: true }}
+    pagination={{ clickable: false }}
     onSwiper={(swiper) => console.log(swiper)}
     onSlideChange={() => console.log('slide change')}
     >
@@ -162,6 +181,6 @@ function Product() {
 
 
     </div>
-  );
+  ;
 }
 export default Product;
