@@ -3,12 +3,14 @@ import React, { useState, useEffect, useContext } from "react";
 import firebase from "firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faQrcode, faSmile, faWallet } from "@fortawesome/free-solid-svg-icons";
+import Countdown from 'react-countdown';
 
 
 function Service() {
     const [tex1, setText1] = useState()
     const [tex2, setText2] = useState()
     const [phone, setPhone] = useState()
+    const [counts, setCount] = useState()
 
     useEffect(() => {
         const getService = firebase
@@ -19,13 +21,19 @@ function Service() {
         setText1(data.text1);
         setText2(data.text2);
         setPhone(data.phone);
-        
-        
+        setCount(data.count);
       });
     
     
         
       }, []);
+
+
+      const renderer = ({ days, hours, minutes, seconds }) => (
+        <span>
+          {(days)+ " өдөр " + (hours)+ " цаг "}{(minutes)+ " минут "}{(seconds) + " секунд"}
+        </span>
+      );
 
 
 
@@ -44,6 +52,10 @@ function Service() {
         <h5 className="mt-4">{tex1}</h5> <br/>
         <h5 className=""><FontAwesomeIcon icon={faPhone} /> {phone}</h5> <br/>
         <h3 className="mt-4">{tex2} <FontAwesomeIcon icon={faSmile} /></h3> <br/>
+        <Countdown
+            date={Date.now() + 172800000}
+            renderer={renderer}
+        />
 
 </div>
            

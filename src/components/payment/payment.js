@@ -10,6 +10,7 @@ import { BeatLoader } from "react-spinners";
 
 function Payment() {
   const [home, setHome] = useState(false);
+  const [priceLevel, setPriceLevel] = useState(false);
   const [checked, setCheckOrder] = useState();
   const ctx = useContext(Context);
   useEffect(() => {
@@ -20,9 +21,13 @@ function Payment() {
       getData.on("value", (snapshot) => {
         const data = snapshot.val();
         setCheckOrder(data.checkedOrder);
-        // setCompeteOrder(dataList.done);
       });
     } finally {
+    }
+
+    if(ctx.priceCtx<5000){
+      setPriceLevel(true)
+
     }
   }, []);
 
@@ -78,14 +83,22 @@ function Payment() {
         <FontAwesomeIcon icon={faQrcode} />
         Qr код уншуулах
       </Link>
-      <Link
+      {priceLevel? <Link
+        to={"/dans2"}
+        className="card component-card_9 col-md-5 col-sm-12 col-12 text-white text-center p-4"
+        style={{ fontSize: "20px" }}
+      >
+        <FontAwesomeIcon icon={faWallet} />
+        Дансруу шилжүүлэх
+      </Link> : <Link
         to={"/dans1"}
         className="card component-card_9 col-md-5 col-sm-12 col-12 text-white text-center p-4"
         style={{ fontSize: "20px" }}
       >
         <FontAwesomeIcon icon={faWallet} />
         Дансруу шилжүүлэх
-      </Link>
+      </Link>  }
+      
     </div>
     <div>
       <br />

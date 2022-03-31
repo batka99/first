@@ -8,6 +8,7 @@ import QrPayment from "./components/qrPayment/qrPayment";
 import BankQr from "./components/bankqr/bankqr";
 import BankWallet from "./components/bankwallet/bankwallet";
 import Dans from "./components/dans/dans";
+import Dans2 from "./components/dans/dans2";
 // import Test from "./components/test/test";
 import CheckOrder from "./components/check_order/check_order";
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/bankqr" ><BankQr/></Route>
           <Route path={"/bankwallet"} ><BankWallet/></Route>
           <Route path={"/dans1"}><Dans/></Route>
+          <Route path={"/dans2"}><Dans2/></Route>
           <Redirect to="/" />
         </Switch>
     </main>

@@ -8,12 +8,14 @@ const Context = React.createContext();
 
 export const ButtonStore = (props) => {
   const [payment, setPayment] = useState();
+  const [priceCtx, setPriceCtx] = useState();
   const productBank = (a) => {
-    setPayment(a);
+    setPayment(a.id);
+    setPriceCtx(a.price)
   };
 
   return (
-    <Context.Provider value={{ productBank, payment }}>
+    <Context.Provider value={{ productBank, payment, priceCtx }}>
       {props.children}
     </Context.Provider>
   );

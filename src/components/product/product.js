@@ -62,19 +62,19 @@ function Product() {
     if (a.stock <= 0) {
       alert("Уучлаарай энэ бараа дууссан байна.");
     } else {
-      ctx.productBank(a.id);
+      ctx.productBank(a);
     }
   };
 
 
 
-  return serviceOn ? <div><Service/></div> : loading ? (
-    <div className="col-12 d-flex justify-content-center align-items-center vh-100">
+  return serviceOn ? 
+  <div><Service/></div> : loading ? <div className="col-12 d-flex justify-content-center align-items-center vh-100">
       <div>
         <BeatLoader color={"#21618C  "} size={25} />
       </div>
     </div>
-  ) : <div id="card_9" className="col-md-12 layout-spacing mr-4 mt-4">
+   : <div id="card_9" className="col-md-12 layout-spacing mr-4 mt-4">
       <div className="statbox widget box box-shadow ">
         <div className="widget-header">
           <div className="row">
@@ -82,10 +82,7 @@ function Product() {
               <h5><FontAwesomeIcon icon={faSquarePhone} />  80551166</h5>
             </div>
           <div className="col-xl-12 mt-4 text-center col-md-12 col-sm-12 col-12 ml-4 rounded ">
-              
               <h2>Та худалдаж авах маскны төрлөө сонгоно уу</h2>
-
-      
             </div>
 
           </div>
@@ -104,9 +101,7 @@ function Product() {
     pagination={{ clickable: false }}
     onSwiper={(swiper) => console.log(swiper)}
     onSlideChange={() => console.log('slide change')}
-    >
-    
-            {state
+    >{state
               ? state.map((element, index) => (
 
                 
@@ -170,16 +165,8 @@ function Product() {
                  </Swiper>
 
           </div>
-          {/* <Test/> */}
-   
-
-      
-
-
         </div>
       </div>
-
-
     </div>
   ;
 }
